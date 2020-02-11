@@ -18,6 +18,14 @@ properties:
     type: string
     read-only: true
     value: ${gateway.voice_address}
+  kamailio_image_name:
+    type: string
+    default: kamailio_v1
+    required: true
+  ippbx_image_name:
+    type: string
+    default: ippbx_v1
+    required: true
 composition:
   voice_infra:
     properties:
@@ -27,11 +35,6 @@ composition:
         value: brent
     type: $lmctl:/contains:/infra:/descriptor_name
   voice_server:
-    cluster:
-      initial-quantity: 1
-      minimum-nodes: 1
-      maximum-nodes: 10
-      scaling-increment: 1
     properties:
       deploymentLocation:
         value: ${deployment_location}
@@ -45,6 +48,13 @@ composition:
         value: ${mgmt_infra_name}
       voice_cidr:
         value: ${voice_infra.internal_cidr}
+      ippbx_image_name:
+        value: ${ippbx_image_name}
+    cluster:
+      initial-quantity: 1
+      minimum-nodes: 1
+      maximum-nodes: 10
+      scaling-increment: 1
     type: assembly::ip-pbx::1.0
   gateway:
     properties:
@@ -60,6 +70,8 @@ composition:
         value: ${voice_infra.internal_security_group_id}
       mgmt_infra_name:
         value: ${mgmt_infra_name}
+      kamailio_image_name:
+        value: ${kamailio_image_name}
     type: assembly::voip-gateway::1.0
 references:
   mgmt_infra:
@@ -67,7 +79,6 @@ references:
       name:
         value: ${mgmt_infra_name}
     type: assembly::mgmt_infra::1.0
-
 relationships:
   manageDispatchList:
     properties:
@@ -95,12 +106,13 @@ policies:
         value: 58
       scaleIn_threshold:
         value: 32
-      smoothing:
+      scaleIn_smoothing:
+        value: 3
+      scaleOut_smoothing:
         value: 3
     type: policy::scale
     metric: gateway.h_load
     target: voice_server
-
 designerLayout:
   description: >-
     The following information is solely used to determine the presentation of
@@ -123,3 +135,8 @@ designerLayout:
     gateway:
       x: 815.3333129882812
       y: 86.66667938232422
+  canvas:
+    translate:
+      x: -23
+      y: -117
+    scale: 0.75

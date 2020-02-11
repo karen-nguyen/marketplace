@@ -38,13 +38,17 @@ properties:
   voice_cidr:
     type: string
     required: true
+  ippbx_image_name:
+    type: string
+    default: ippbx_v1
+    required: true
 composition:
   asterisk:
     properties:
       key_name:
         value: ${keyname}
       image_id:
-        value: ippbx
+        value: ${ippbx_image_name}
       flavor:
         value: m1.small
       mgmt_network_id:
@@ -53,10 +57,10 @@ composition:
         value: ${mgmt.mgmt_security_group_id}
       voice_network_id:
         value: ${voice_network}
-      voice_cidr:
-        value: ${voice_cidr}
       voice_secgroup_id:
         value: ${voice_security_group}
+      voice_cidr:
+        value: ${voice_cidr}
       gw_address:
         value: ${gw_address}
       integrity_smoothing:
@@ -89,8 +93,8 @@ designerLayout:
     directly.
   elements:
     asterisk:
-      x: 1286.2031860351562
-      y: -554.089409828186
+      x: 1034.2031860351562
+      y: -527.4227533340454
     base:
       x: 513.0260314941406
       y: 331.9881896972656
@@ -100,3 +104,8 @@ designerLayout:
     mgmt:
       x: 556.6666259765625
       y: 226.66664123535156
+  canvas:
+    translate:
+      x: -145
+      y: 411
+    scale: 0.75

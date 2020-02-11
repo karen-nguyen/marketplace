@@ -9,7 +9,7 @@ properties:
      required: true
   image_id:
     description: "the image name"
-    value: kamailio
+    default: kamailio
   flavor:
     description: "Type of instance (flavor) to be used"
     default: m1.small

@@ -38,13 +38,17 @@ properties:
   mgmt_infra_name:
     description: managemet infrastructure instance name
     default: mgmt
+  kamailio_image_name:
+    type: string
+    default: kamailio_v1
+    required: true
 composition:
   gateway:
     properties:
       key_name:
         value: ${keyname}
       image_id:
-        value: kamailio
+        value: ${kamailio_image_name}
       flavor:
         value: m1.small
       mgmt_network_id:
@@ -73,8 +77,6 @@ composition:
         value: ${deploymentLocation}
       resourceManager:
         value: ${resourceManager}
-      gw_address:
-        value: ${gw_address}
     type: $lmctl:/contains:/kamailio-vnfc:/descriptor_name
     quantity: 1
 references:
@@ -100,11 +102,16 @@ designerLayout:
     directly.
   elements:
     gateway:
-      x: 1195.3333129882812
-      y: -122.66666793823242
+      x: 580.6666870117188
+      y: -218.6666717529297
     mgmt:
-      x: 538.5281982421875
-      y: 313.0795593261719
+      x: 223.86156463623047
+      y: 310.4128723144531
     assembly::voip-gateway::1.0:
-      x: -131.30865478515625
-      y: 66.97479248046875
+      x: -147.3086700439453
+      y: -159.69189453125
+  canvas:
+    translate:
+      x: 228
+      y: 124
+    scale: 0.75
