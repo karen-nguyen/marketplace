@@ -30,13 +30,15 @@ properties:
     default: mgmt
   target_ip_address:
     required: true
+  sipp_image_name:
+    default: sipp_v1
 composition:
   sipp:
     properties:
       key_name:
         value: ${keyname}
       image_id:
-        value: sipp
+        value: ${sipp_image_name}
       flavor:
         value: m1.small
       mgmt_network_id:

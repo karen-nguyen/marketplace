@@ -8,6 +8,9 @@ properties:
     type: string
     default: voice
     required: true
+  sipp_image_name:
+    type: string
+    default: sipp_v1
 composition:
   sipp:
     properties:
@@ -19,6 +22,8 @@ composition:
         value: ${target-service.voice_security_group_id}
       target_ip_address:
         value: ${target-service.voice_service_access_ip}
+      sipp_image_name:
+        value: ${sipp_image_name}
     type: assembly::sip-performance::1.0
 references:
   target-service:
