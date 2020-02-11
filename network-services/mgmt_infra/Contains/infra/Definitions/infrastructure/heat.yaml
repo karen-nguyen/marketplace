@@ -31,7 +31,7 @@ resources:
     type: "OS::Neutron::Net"
     properties: 
       admin_state_up: true
-      name: mgmt_net
+      name: training_mgmt_net
 
   mgmt_subnet: 
     type: "OS::Neutron::Subnet"
