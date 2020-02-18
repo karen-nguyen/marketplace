@@ -1,17 +1,15 @@
-description: descriptor for kamailio-vnfc
-
 properties:
   instance_name:
     description: the name of this resource instance
     value: ${instance.name}
   key_name:
-     description: Openstack key
-     required: true
+    description: Openstack key
+    required: true
   image_id:
-    description: "the image name"
+    description: the image name
     default: kamailio
   flavor:
-    description: "Type of instance (flavor) to be used"
+    description: Type of instance (flavor) to be used
     default: m1.small
 
   mgmt_network_id:
@@ -19,14 +17,14 @@ properties:
   mgmt_secgroup_id:
     description: mgmt secgroup id
   mgmt_ip_address:
-    read-only: true  
+    read-only: true
 
   voice_network_id:
     description: voice network id
   voice_secgroup_id:
     description: voice secgroup id
   voice_ip_address:
-    description: assigned ip address on voip network. This is the voip endpoint 
+    description: assigned ip address on voip network. This is the voip endpoint
     read-only: true
 
   internal_network_id:
@@ -34,17 +32,18 @@ properties:
   internal_secgroup_id:
     description: internal secgroup id
   internal_ip_address:
-    description: assigned ip address on internal network. 
+    description: assigned ip address on internal network.
     read-only: true
 
-  
+
   # properties for metrics and policies
   instanceid:
-    description: this is here to get metric key, which is curretly the same as instance id. This will be removed soon.
-    value: ${instance.id}    
+    description: this is here to get metric key, which is curretly the same as instance
+      id. This will be removed soon.
+    value: ${instance.id}
   integrity_smoothing:
-     description: Integrity smoothing
-     default: 3     
+    description: Integrity smoothing
+    default: 3
   publication_period:
     description: Metric publication period in seconds
     default: 60
@@ -58,12 +57,24 @@ properties:
     description: jumphost password
 
 lifecycle:
-- Create
-- Configure
-- Start
-- Integrity
-- Stop
-- Delete
+  Delete: {}
+  Create: {}
+  Integrity: {}
+  Start: {}
+  Configure: {}
+  Stop: {}
+infrastructure:
+  Kubernetes:
+    template:
+      file: k8s.yaml
+  Openstack:
+    template:
+      file: heat.yaml
+      template-type: HEAT
+metrics:
+  h_load:
+    type: metric::load
+    publication_period: 60
 
 operations:
   addToDispatchList:
@@ -88,8 +99,8 @@ operations:
         description: address of the voip server to remove from the pool
         default: 5060
         required: true
-metrics:
-  h_load:
-    type: metric::load
-    publication_period: 60
-
+description: descriptor for kamailio-vnfc
+default-driver:
+  ansible:
+    infrastructure-type:
+    - '*'
