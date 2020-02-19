@@ -54,7 +54,8 @@ def send_integrity_metric():
 	state = 'BROKEN'
 	state_int = 0
 	
-  url = 'http://{{dl_properties.almip}}:31285/api/send/integrity/' + metric_key + '?metricName=h_integrity&integrity=' + state
+# url = 'http://{{dl_properties.almip}}:31285/api/send/integrity/' + metric_key + '?metricName=h_integrity&integrity=' + state
+  url = 'http://{{dl_properties.almip}}:31285/api/send/integrity/' + metric_key + '?integrity=' + state + '&metricName=h_integrity'
   collectd.info(url) 
   try:  urllib2.urlopen(url)
   except Exception as e:

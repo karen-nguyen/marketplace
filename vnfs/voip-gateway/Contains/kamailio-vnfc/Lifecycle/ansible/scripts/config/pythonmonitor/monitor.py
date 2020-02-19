@@ -40,7 +40,8 @@ def send_load_metric(load):
   if resource_guid == None:
     return
 
-  query_args = { 'metricName':'h_load', 'load':load }
+#  query_args = { 'metricName':'h_load', 'load':load }
+  query_args = { 'load':load , 'metricName':'h_load' }
   encoded_args = urllib.urlencode(query_args)
 
   url = 'http://{{ dl_properties.almip }}:31285/api/send/load/'+resource_guid+'/?'+encoded_args
