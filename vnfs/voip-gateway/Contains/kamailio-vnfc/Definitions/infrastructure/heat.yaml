@@ -74,9 +74,9 @@ resources:
     type: "OS::Nova::Server"
     properties: 
       networks: 
-        - port: { get_resource: mgmt_port }
-        - port: { get_resource: voice_port }
         - port: { get_resource: internal_port }
+        - port: { get_resource: voice_port }
+        - port: { get_resource: mgmt_port }
       name: { get_param: instance_name }
       flavor: { get_param: flavor }
       key_name: { get_param: key_name }
