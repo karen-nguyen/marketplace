@@ -12,13 +12,13 @@ metrics:
     type: metric::integrity
     publication-period: '10'
 #heal policy is commented out until integrity metric can be sent correctly from asterisk
-#policies:
-#  heal:
-#    metric: "h_integrity"
-#    type: "policy::heal"
-#    properties:
-#      smoothing:
-#        value: ${integrity_smoothing}
+policies:
+  heal:
+    metric: "h_integrity"
+    type: "policy::heal"
+    properties:
+      smoothing:
+        value: ${integrity_smoothing}
 properties:
   instance_name:
     description: the name of this resource instance
